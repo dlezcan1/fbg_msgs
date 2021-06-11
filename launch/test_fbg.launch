@@ -2,4 +2,6 @@
 	<!-- node name="fbg_talker" pkg="fbg_msgs" type="test_fbg_talker" ns="FBG" output="screen"/-->
 	<!-- node name="fbg_talker" pkg="fbg_msgs" type="test_fbg_talker" ns="/" output="screen"/-->
 	<node name="fbg_talker" pkg="fbg_msgs" type="test_fbg_talker" output="screen"/>
+	<arg name="ip" default="10.0.1.1"/>
+	<param name="ip_address" value="$(arg ip)"/>
 </launch>
