@@ -1,4 +1,5 @@
 <launch>
 	<!-- node name="fbg_talker" pkg="fbg_msgs" type="test_fbg_talker" ns="FBG" output="screen"/-->
-	<node name="fbg_talker" pkg="fbg_msgs" type="test_fbg_talker" ns="/" output="screen"/>
+	<!-- node name="fbg_talker" pkg="fbg_msgs" type="test_fbg_talker" ns="/" output="screen"/-->
+	<node name="fbg_talker" pkg="fbg_msgs" type="test_fbg_talker" output="screen"/>
 </launch>
