@@ -8,6 +8,7 @@ project(fbg_msgs)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  roscpp
   std_msgs
   message_generation
 )
@@ -132,7 +133,9 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/fbg_msgs_node.cpp)
+add_executable(test_fbg_talker src/test_fbg_talker.cpp)
+target_link_libraries(test_fbg_talker ${catkin_LIBRARIES})
+add_dependencies(test_fbg_talker fbg_msgs_generate_messages_cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -191,7 +194,11 @@ include_directories(
 #   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 # )
 
-#############
+install(FILES
+	launch/test_fbg.launch
+	DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
+)
+
 ## Testing ##
 #############
 
