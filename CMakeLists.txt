@@ -9,6 +9,7 @@ project(fbg_msgs)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   roscpp
+  rospy
   std_msgs
   message_generation
 )
@@ -54,11 +55,10 @@ add_message_files(
 )
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
-#   Service1.srv
-#   Service2.srv
-# )
+add_service_files(
+   FILES
+   TemperatureCompensate.srv
+)
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -103,7 +103,7 @@ generate_messages(
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
+  INCLUDE_DIRS include
 #  LIBRARIES fbg_msgs
 #  CATKIN_DEPENDS std_msgs
 #  DEPENDS system_lib
@@ -116,7 +116,7 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
+  include
   ${catkin_INCLUDE_DIRS}
 )
 
@@ -134,8 +134,7 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(test_fbg_talker src/test_fbg_talker.cpp)
-target_link_libraries(test_fbg_talker ${catkin_LIBRARIES})
-add_dependencies(test_fbg_talker fbg_msgs_generate_messages_cpp)
+add_executable(${PROJECT_NAME}_node src/test_class_fbg_talker.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -146,11 +145,15 @@ add_dependencies(test_fbg_talker fbg_msgs_generate_messages_cpp)
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(test_fbg_talker fbg_msgs_generate_messages_cpp)
+add_dependencies(${PROJECT_NAME}_node fbg_msgs_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
+target_link_libraries(test_fbg_talker ${catkin_LIBRARIES})
+target_link_libraries(${PROJECT_NAME}_node ${catkin_LIBRARIES})
 
 #############
 ## Install ##
@@ -161,10 +164,10 @@ add_dependencies(test_fbg_talker fbg_msgs_generate_messages_cpp)
 
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
-# install(PROGRAMS
-#   scripts/my_python_script
-#   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
+install(PROGRAMS
+   scripts/temperature_compensate_service.py
+   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 
 ## Mark executables for installation
 ## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_executables.html
@@ -196,6 +199,7 @@ add_dependencies(test_fbg_talker fbg_msgs_generate_messages_cpp)
 
 install(FILES
 	launch/test_fbg.launch
+	launch/test_class_fbg.launch
 	DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
 )
 

@@ -1,0 +1,7 @@
+<launch>
+	<group ns="FBG">
+		<node name="fbg_talker_node" pkg="fbg_msgs" type="fbg_msgs_node" output="screen"/>
+		<arg name="ip" default="10.0.1.1"/>
+		<param name="ip_address" value="$(arg ip)"/>
+	</group>
+</launch>
