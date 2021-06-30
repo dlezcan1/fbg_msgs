@@ -2,6 +2,7 @@
 #define TEST_CLASS_FBG_TALKER_H
 
 #include <ros/ros.h>
+#include <stdio.h>
 
 #include "fbg_msgs/FBG.h"
 #include "fbg_msgs/FBGstamped.h"
@@ -25,8 +26,12 @@ class TestFBGTalker
 		/* Needle parameters */
 		int num_AA;
 		
+		/* Test Interrogator Params */
+		std::string ip_address;
+		
 		// Functions
 		void initialize_publishers();
+		void get_parameters();
 		
 	
 };

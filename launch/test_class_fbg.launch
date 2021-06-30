@@ -1,7 +1,10 @@
 <launch>
 	<group ns="FBG">
 		<node name="fbg_talker_node" pkg="fbg_msgs" type="fbg_msgs_node" output="screen"/>
-		<arg name="ip" default="10.0.1.1"/>
-		<param name="ip_address" value="$(arg ip)"/>
+		<rosparam command="load" file="$(find fbg_msgs)/config/test_interrogator.yaml"/>
+		<arg name="ip" default="10.0.0.1"/>
+		<group if="eval $(arg ip) == 10.0.0.1">
+			<param name="ip_address" value="$(arg ip)"/>
+		</group>
 	</group>
 </launch>

@@ -1,16 +1,22 @@
-#include <stdio.h>
 #include "test_class_fbg_talker.hpp"
 
 TestFBGTalker::TestFBGTalker(ros::NodeHandle &nodehandle, int num_AA):nh_(nodehandle)
 {
 	this->num_AA  = num_AA;
 	
+	this->get_parameters();
 	this->initialize_publishers();
-	ROS_INFO("TestFBGTalker is initalized");
+	ROS_INFO("TestFBGTalker is initalized @ %s", ip_address.c_str());
 	
 	
 	
 } // constructor
+
+void TestFBGTalker::get_parameters()
+{
+	nh_.getParam("ip_address", ip_address);
+		
+}
 
 void TestFBGTalker::initialize_publishers()
 {
